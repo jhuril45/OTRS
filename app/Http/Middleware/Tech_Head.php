@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class TechStaff
+class Tech_Head
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class TechStaff
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->user_type == 'techstaff'){
+        if(auth()->user()->user_type == 'tech_head'){
             return $next($request);
         }
         return redirect('home')->with('error','You dont have access to this page');

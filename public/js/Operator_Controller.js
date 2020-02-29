@@ -14,13 +14,33 @@ app.controller('Operator_Controller', function($scope,$http) {
                 }).then((result) => {
                     if(result.value){
                         try{
-                        	$http({
+                        Swal.fire({
+                        title: "Submitting...",
+                        text: "Please wait",
+                        imageUrl: "../img/loader2.gif",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                        });
+                    $http({
 				            method : "POST",
 				            url : 'operator/Submit_Ticket',
 				            data: {Service_Id:Service_Id,Comment:Comment},
 				        	}).then(function mySuccess(response) {
+                    Swal.close();
+                    Swal.fire(
+                          'Good job!',
+                          'Service Successfully Added!',
+                          'success'
+                        );
+                    $("#Add_Ticket_Modal").modal("hide");
 				            console.log(response.data);
 				        	}, function myError(response) {
+                    Swal.close();
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Oops...',
+                          text: 'Error'+response.status+' '+response.statusText,                          
+                        })
 				            console.log(response);
 				        	});
                         }catch(err){
@@ -29,6 +49,19 @@ app.controller('Operator_Controller', function($scope,$http) {
                     }
                 });
 	}
+
+  $scope.Initiate_Add_Ticket = function(){
+    $http({
+        method : "GET",
+        url : 'operator/Get_Services',        
+      }).then(function mySuccess(response) {
+        console.log(response.data);
+        $scope.List_Services = response.data;
+        $scope.Service_Id = $scope.List_Services[0].service_id;
+      }, function myError(response) {
+        console.log(response);
+      });
+  }
 
 	$scope.Check_Ticket = function(){
 		$http({

@@ -15,10 +15,10 @@
                         console.log("operator");
                         window.location.href="operator";
                     </script>
-    @elseif(Auth()->user()->user_type == 'techstaff')
+    @elseif(Auth()->user()->user_type == 'tech_staff')
                      <script type="text/javascript">
                         console.log("techstaff");
-                        window.location.href="techstaff";
+                        window.location.href="tech_staff";
                     </script>
     @elseif(Auth()->user()->user_type == 'marketing_officer')
                      <script type="text/javascript">

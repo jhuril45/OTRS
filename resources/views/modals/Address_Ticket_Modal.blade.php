@@ -1,11 +1,11 @@
   <!-- The Modal -->
-  <div class="modal fade" id="Add_Ticket_Modal">
+  <div class="modal fade" id="Address_Ticket_Modal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add Ticket</h4>
+          <h4 class="modal-title" ng-bind="'Ticket for '+Specific_Address_Ticket.ticket.service.service_name"></h4>        
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -15,15 +15,10 @@
             <div class="row">
 
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label>Service Type</label>
-                <select ng-model="Service_Id" class="form-control form-control-sm" ng-options="service.service_id as service.service_name for service in List_Services">                  
-                </select>
-              </div>
-
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <label>Comment</label>
-                <input type="text" name="" ng-model="Comment" class="form-control form-control-sm">
-              </div>
+                <textarea type="text" name="" class="form-control form-control-sm" ng-model="Comment" ng-if="Specific_Address_Ticket.ticket.status == 1"></textarea>
+                <textarea type="text" name="" class="form-control form-control-sm" ng-bind="Specific_Address_Ticket.comment" ng-if="Specific_Address_Ticket.ticket.status != 1" disabled="disabled"></textarea>
+              </div>              
 
             </div>
           </div>
@@ -31,7 +26,7 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" ng-click="Submit_Ticket(Service_Id,Comment)">Submit</button>
+          <button type="button" class="btn btn-success" ng-click="Finish_Ticket(Comment,Specific_Address_Ticket.ticket_id)" ng-if="Specific_Address_Ticket.ticket.status == 1">Done</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
         

@@ -4,45 +4,55 @@ app.filter('date_time', function(){
             
             res = input.split(" ");
             date = convertDate(res[0]);
-            
+
             time = res[1].split(":");
             console.log(time);
-            hr = parseInt(time[0],10);
+            hr = parseInt(time[0],10);            
             min = time[1];
-            
 
-            if(hr >= 12){                
+            date_time = 0;
+            if(hr > 12){
+                console.log("Aw");
                 hr = hr - 12;
                 if(hr < 10){
                     time = "0" + hr + ":";
                     time = time + min;
                     time = time + "PM";
+                    date_time = date + " " + time;
+                    console.log(date + " " + time);
                     return date + " " + time;  
                     }
                 if(hr > 10){
                     time = hr + ":";
                     time = time + min;
                     time = time + "PM";
+                    date_time = date + " " + time;
+                    console.log(date + " " + time);
                     return date + " " + time;
                 }
                 
             }
-            if(hr < 12){
+            if(hr <= 12){
+                
                 if(hr < 10){
                     time = "0" + hr + ":";
                     time = time + min;
                     time = time + "AM";
+                    date_time = date + " " + time;
+                    console.log(date + " " + time);
                     return date + " " + time;    
                 }
-                if(hr > 10){
+                if(hr >= 10){
                     time = hr + ":";
                     time = time + min;
                     time = time + "PM";
+                    date_time = date + " " + time;
+                    console.log(date + " " + time);
                     return date + " " + time;
                 }
                 
             }
-            
+            console.log(date_time);
             
         }
         
@@ -64,7 +74,7 @@ app.filter('time', function(){
             min = time[1];
             
 
-            if(hr >= 12){                
+            if(hr > 12){                
                 hr = hr - 12;
                 if(hr < 10){
                     time = "0" + hr + ":";
@@ -80,14 +90,14 @@ app.filter('time', function(){
                 }
                 
             }
-            if(hr < 12){
+            if(hr <= 12){
                 if(hr < 10){
                     time = "0" + hr + ":";
                     time = time + min;
                     time = time + "AM";
                     return time;    
                 }
-                if(hr > 10){
+                if(hr >= 10){
                     time = hr + ":";
                     time = time + min;
                     time = time + "PM";

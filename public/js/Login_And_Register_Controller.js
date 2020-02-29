@@ -50,13 +50,13 @@ app.controller('Login_Controller', function($scope,$http) {
                 console.log(response.data);
                 window.location.href= "operator";
             }
-            else if(response.data == "techstaff"){
+            else if(response.data == "tech_staff"){
                 console.log(response.data);
-                window.location.href= "techstaff";
+                window.location.href= "tech_staff";
             }
-            else if(response.data == "marketing_manager"){
+            else if(response.data == "tech_head"){
                 console.log(response.data);
-                window.location.href= "marketing_manager/routes";
+                window.location.href= "tech_head";
             }
             else if(response.data == "incorrect"){
                 Swal.fire({
@@ -68,6 +68,12 @@ app.controller('Login_Controller', function($scope,$http) {
             
             }, function myError(response) {
             console.log(response);
+            Swal.close();
+            Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: response.message,                  
+                })
             });
 
         }catch(err){

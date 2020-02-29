@@ -1,11 +1,11 @@
   <!-- The Modal -->
-  <div class="modal fade" id="Add_Ticket_Modal">
+  <div class="modal fade" id="Add_Service_Modal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Add Ticket</h4>
+          <h4 class="modal-title">Add Service</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -15,14 +15,13 @@
             <div class="row">
 
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label>Service Type</label>
-                <select ng-model="Service_Id" class="form-control form-control-sm" ng-options="service.service_id as service.service_name for service in List_Services">                  
-                </select>
+                <label>Service Name</label>
+                <input type="text" name="" ng-model="service_name" class="form-control form-control-sm">
               </div>
 
               <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label>Comment</label>
-                <input type="text" name="" ng-model="Comment" class="form-control form-control-sm">
+                <label>Amount of Minutes to Address</label>
+                <input type="number" name="" ng-model="service_deadline" class="form-control form-control-sm">
               </div>
 
             </div>
@@ -31,7 +30,7 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" ng-click="Submit_Ticket(Service_Id,Comment)">Submit</button>
+          <button type="button" class="btn btn-success" ng-click="Submit_Service(service_name,service_deadline)">Submit</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
         

@@ -31,7 +31,7 @@
 	        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-primary bottom-top-radius">
 	          <a href="" class="custom_nav_link">
 	            <center>
-	              <h4 class="text-white">Function</h4>
+	              <h4 class="text-white" ng-click="List_Ticket()">Tickets</h4>
 	            </center>
 	          </a>
 	        </div>
@@ -43,9 +43,9 @@
 
 	        
 	          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  bg-primary bottom-top-radius">
-	            <a href="" class="custom_nav_link">
+	            <a href="" class="custom_nav_link" ng-click="List_Cater_Ticket()">
 	              <center>
-	                <h4 class="text-white">Function</h4>
+	                <h4 class="text-white">Catered Ticket</h4>
 	              </center>
 	            </a>
 	          </div>
@@ -70,7 +70,7 @@
 	     	<br>
 	    </div>
 
-	    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+	    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" id="List_Tickets">
 			<table class="table table-striped" ng-init="Get_Tickets()">
 				<thead>
 	              <tr>
@@ -82,15 +82,18 @@
 		              
 	          	<tbody>
 	              <tr ng-repeat="List in List_Tickets">
-	                  <th scope="row" ng-bind="List.created_at | time" class="text-color-gray"></th>
-	                  <th scope="row" ng-bind="'CCTV'" class="text-color-gray" ng-if="List.service_id == 1"></th>
+	                  <th scope="row" ng-bind="List.created_at | date_time" class="text-color-gray"></th>	                  
+	                  <th scope="row" ng-bind="List.service.service_name" class="text-color-gray"></th>
 	                  <td>
 	                    <span class="align-middle">
-	                      <button class="btn btn-primary btn-sm">
-	                        <i class="fas fa-eye fa-lg"></i> View
+	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 0">
+	                        <i class="fas fa-eye fa-lg"></i> View Ticket
 	                      </button>
-	                      <button class="btn btn-warning btn-sm">
-	                        <i class="fas fa-eye fa-lg"></i> Get
+	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 1" data-toggle="modal" data-target="#Address_Ticket_Modal" ng-click="View_Address_Ticket(List)">
+	                        <i class="fas fa-eye fa-lg"></i> View Addressed Ticket
+	                      </button>
+	                      <button class="btn btn-warning btn-sm" ng-click="Cater_Ticket(List.ticket_id)" ng-if="Ticket_Type == 0">
+	                        <i class="fas fa-eye fa-lg"></i> Cater Ticket
 	                      </button>
 	                  	</span>
 	                  </td>
@@ -104,6 +107,41 @@
 			</table>
 	    </div>
 
+	    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" id="List_Catered_Tickets" hidden="hidden">
+			<table class="table table-striped">
+				<thead>
+	              <tr>
+		              <th>Date & Time</th>		              
+		              <th>Type</th>
+		              <th>Action</th>
+	              </tr>
+	          	</thead>
+		              
+	          	<tbody>
+	              <tr ng-repeat="List in List_Tickets">
+	                  <th scope="row" ng-bind="List.created_at | date_time" class="text-color-gray"></th>	                  
+	                  <th scope="row" ng-bind="List.ticket.service.service_name" class="text-color-gray"></th>
+	                  <td>
+	                    <span class="align-middle">
+	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 0">
+	                        <i class="fas fa-eye fa-lg"></i> View Ticket
+	                      </button>
+	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 1" data-toggle="modal" data-target="#Address_Ticket_Modal" ng-click="View_Address_Ticket(List)">
+	                        <i class="fas fa-eye fa-lg"></i> View Addressed Ticket
+	                      </button>	                      
+	                  	</span>
+	                  </td>
+	              </tr>
+	              <tr ng-if="Filter_Customer.length == 0">
+	                <th>None</th>
+	                <th>None</th>
+	                <th>None</th>
+	              </tr>
+	          	</tbody>
+			</table>
+	    </div>
+
 	</div>
+@include('modals.Address_Ticket_Modal')
 </div>
 @endsection

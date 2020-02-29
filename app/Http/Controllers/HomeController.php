@@ -31,9 +31,14 @@ class HomeController extends Controller
         return view('operator.home');
     }
 
-    public function techstaff()
+    public function tech_staff()
     {
-        return view('techstaff.home');
+        return view('tech_staff.home');
+    }
+
+    public function tech_head()
+    {
+        return view('tech_head.home');
     }
     
 }

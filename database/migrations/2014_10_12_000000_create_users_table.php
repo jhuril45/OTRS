@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('level');            
             $table->string('comment');            
             $table->integer('status');
-            $table->integer('time_done');
+            $table->integer('user_id');
             $table->timestamps();
         });
         Schema::create('ticket_support', function (Blueprint $table) {
@@ -37,9 +37,17 @@ class CreateUsersTable extends Migration
             $table->integer('user_id');            
             $table->string('comment');            
             $table->integer('status');
-            $table->integer('time_done');
+            $table->integer('time_consumed');
+            $table->dateTime('time_finished');
             $table->timestamps();
         });
+        Schema::create('service', function (Blueprint $table) {
+            $table->bigIncrements('service_id');
+            $table->string('service_name');
+            $table->integer('service_deadline');                        
+            $table->timestamps();
+        });
+
     }
 
     /**

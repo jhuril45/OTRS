@@ -4,10 +4,10 @@
 @guest
 <div class="container" ng-controller="Login_Controller">
     <div class="col-sm-4 border rounded float-right" id="login-border">
-        <form class="text-center border border-light p-5" ng-submit="Login_User(username,password)">
+        <form class="text-center border border-light p-5" ng-submit="login_form.$valid && Login_User(username,password)" name="login_form">
              <p class="h4 mb-4">Sign in</p>
-                <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username" ng-model="username">
-                <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" ng-model="password">
+                <input type="text" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="Username" ng-model="username" ng-required="true">
+                <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" ng-model="password" ng-required="true">
             <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
             <p>Not a member?
                 <a href="/register">Register</a>

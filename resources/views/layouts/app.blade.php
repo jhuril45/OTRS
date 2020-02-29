@@ -17,6 +17,7 @@
     <script type="text/javascript" src="{{ asset('js/Login_And_Register_Controller.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/Operator_Controller.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/Tech_Staff_Controller.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/Tech_Head_Controller.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

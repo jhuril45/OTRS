@@ -31,8 +31,9 @@ Route::post('/Login_User', 'Login_Controller@Login_User');
 Route::middleware(['operator'])->group(function () {
 	Route::get('operator', 'HomeController@operator')->middleware('operator');
 	Route::post('operator/Submit_Ticket', 'Operator_Controller@submit_ticket');
-	Route::post('operator/Check_Ticket', 'Operator_Controller@Check_Ticket');
+	Route::patch('operator/Check_Ticket', 'Operator_Controller@Check_Ticket');
 	Route::get('operator/Get_Services', 'Operator_Controller@Get_Services');
+	Route::get('operator/Get_Tickets', 'Operator_Controller@Get_Tickets');
 });
 
 Route::middleware(['tech_staff'])->group(function () {
@@ -52,6 +53,8 @@ Route::middleware(['tech_head'])->group(function () {
     Route::get('tech_head/Get_Tickets', 'Tech_Head_Controller@Get_Tickets');
     Route::get('tech_head/Get_Cater_Tickets', 'Tech_Head_Controller@Get_Cater_Tickets');
     Route::post('tech_head/Submit_Service', 'Tech_Head_Controller@Submit_Service');
+    Route::get('tech_head/Get_Expired_Tickets', 'Tech_Head_Controller@Get_Expired_Tickets');
+    
     
 });
 

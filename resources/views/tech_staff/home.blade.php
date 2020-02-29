@@ -98,7 +98,7 @@
 	                  	</span>
 	                  </td>
 	              </tr>
-	              <tr ng-if="Filter_Customer.length == 0">
+	              <tr ng-if="List_Tickets.length == 0">
 	                <th>None</th>
 	                <th>None</th>
 	                <th>None</th>
@@ -113,6 +113,7 @@
 	              <tr>
 		              <th>Date & Time</th>		              
 		              <th>Type</th>
+		              <th>Status</th>
 		              <th>Action</th>
 	              </tr>
 	          	</thead>
@@ -121,12 +122,11 @@
 	              <tr ng-repeat="List in List_Tickets">
 	                  <th scope="row" ng-bind="List.created_at | date_time" class="text-color-gray"></th>	                  
 	                  <th scope="row" ng-bind="List.ticket.service.service_name" class="text-color-gray"></th>
+	                  <th scope="row" ng-if="List.status == 0" class="text-color-gray">In Progress</th>
+	                  <th scope="row" ng-if="List.status == 1" class="text-color-gray">Done</th>
 	                  <td>
-	                    <span class="align-middle">
-	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 0">
-	                        <i class="fas fa-eye fa-lg"></i> View Ticket
-	                      </button>
-	                      <button class="btn btn-primary btn-sm" ng-if="Ticket_Type == 1" data-toggle="modal" data-target="#Address_Ticket_Modal" ng-click="View_Address_Ticket(List)">
+	                    <span class="align-middle">	                      
+	                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Address_Ticket_Modal" ng-click="View_Address_Ticket(List)">
 	                        <i class="fas fa-eye fa-lg"></i> View Addressed Ticket
 	                      </button>	                      
 	                  	</span>

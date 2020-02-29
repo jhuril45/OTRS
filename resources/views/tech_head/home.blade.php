@@ -19,7 +19,7 @@
 	        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-black">
 	          <center>
 	            <h4>Name</h4>
-	            <p><i>Tech Staff</i></p>
+	            <p><i>Tech Head</i></p>
 	          </center>
 	        </div>
 
@@ -60,6 +60,19 @@
 	            <a href="" class="custom_nav_link" ng-click="Get_Services()">
 	              <center>
 	                <h4 class="text-white">Services</h4>
+	              </center>
+	            </a>
+	          </div>
+
+	        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	          <br>
+	        </div>
+
+	        
+	          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-primary bottom-top-radius">
+	            <a href="" class="custom_nav_link" ng-click="Get_Expired_Tickets()">
+	              <center>
+	                <h4 class="text-white">Expired Ticket</h4>
 	              </center>
 	            </a>
 	          </div>
@@ -143,6 +156,7 @@
 	              <tr>
 		              <th>Date & Time</th>		              
 		              <th>Type</th>
+		              <th>Status</th>
 		              <th>Action</th>
 	              </tr>
 	          	</thead>
@@ -150,11 +164,12 @@
 	          	<tbody>
 	              <tr ng-repeat="List in List_Catered_Tickets">
 	                  <th scope="row" ng-bind="List.created_at | date_time" class="text-color-gray"></th>
-	                  <th scope="row" ng-bind="'CCTV'" class="text-color-gray" ng-if="List.service_id == 1"></th>
-	                  <th scope="row" ng-bind="'ATK'" class="text-color-gray" ng-if="List.service_id == 2"></th>
+	                  <th scope="row" ng-bind="List.ticket.service.service_name" class="text-color-gray"></th>
+	                  <th scope="row" ng-if="List.status == 1" class="text-color-gray">In Progress</th>
+	                  <th scope="row" ng-if="List.status == 2" class="text-color-gray">Done</th>
 	                  <td>
 	                    <span class="align-middle">
-	                      <button class="btn btn-primary btn-sm">
+	                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#Address_Ticket_Modal" ng-click="View_Address_Ticket(List)">
 	                        <i class="fas fa-eye fa-lg"></i> View Ticket
 	                      </button>	                      
 	                  	</span>
@@ -169,7 +184,44 @@
 			</table>
 	    </div>
 
+
+	    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10" id="list_expired_tickets" hidden="hidden">
+	    	<center><h4> Expired Tickets</h4><center>
+	    		<br>
+			<table class="table table-striped">
+				<thead>
+	              <tr>
+		              <th>Date & Time</th>		              
+		              <th>Type</th>
+		              <th>Time Passed</th>
+		              <th>Action</th>
+	              </tr>
+	          	</thead>
+		              
+	          	<tbody>
+	              <tr ng-repeat="List in List_Expired_Tickets">
+	                  <th scope="row" ng-bind="List.created_at | date_time" class="text-color-gray"></th>
+	                  <th scope="row" ng-bind="List.service.service_name" class="text-color-gray"></th>
+	                  <th scope="row" ng-bind="List.time_passed" class="text-color-gray"></th>
+	                  <td>
+	                    <span class="align-middle">
+	                      <button class="btn btn-primary btn-sm">
+	                        <i class="fas fa-eye fa-lg"></i> View Ticket
+	                      </button>	                      
+	                  	</span>
+	                  </td>
+	              </tr>
+	              <tr ng-if="List_Expired_Tickets.length == 0">
+	                <th>None</th>
+	                <th>None</th>
+	                <th>None</th>
+	              </tr>
+	          	</tbody>
+			</table>
+	    </div>
+
 	</div>
+	@include('modals.Address_Ticket_Modal')
 	@include('modals.Add_Service_Modal')
 </div>
 @endsection

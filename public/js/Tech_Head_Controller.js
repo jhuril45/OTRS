@@ -5,6 +5,7 @@ app.controller('Tech_Head_Controller', function($scope,$http) {
         $("#list_services").attr("hidden",false);
         $("#list_tickets").attr("hidden","hidden");
         $("#list_catered_tickets").attr("hidden","hidden");
+        $("#list_expired_tickets").attr("hidden","hidden");
         
         $http({
         method : "GET",
@@ -20,8 +21,8 @@ app.controller('Tech_Head_Controller', function($scope,$http) {
     $scope.Get_Tickets =function(){
         $("#list_services").attr("hidden","hidden");        
         $("#list_catered_tickets").attr("hidden","hidden");
-        $("#list_tickets").attr("hidden",false);
-        $scope.List_Tickets = [];
+        $("#list_expired_tickets").attr("hidden","hidden");
+        $("#list_tickets").attr("hidden",false);        
         $http({
         method : "GET",
         url : 'tech_head/Get_Tickets',
@@ -30,13 +31,13 @@ app.controller('Tech_Head_Controller', function($scope,$http) {
         $scope.List_Tickets = response.data;
         }, function myError(response) {
         console.log(response);
-        });
-        $scope.Ticket_Type = 0;
+        });        
     }
 
     $scope.Get_Cater_Tickets = function(){
         $("#list_services").attr("hidden","hidden");        
         $("#list_tickets").attr("hidden","hidden");
+        $("#list_expired_tickets").attr("hidden","hidden");
         $("#list_catered_tickets").attr("hidden",false);
         $http({
         method : "GET",
@@ -44,6 +45,76 @@ app.controller('Tech_Head_Controller', function($scope,$http) {
         data: {},
         }).then(function mySuccess(response) {        
         $scope.List_Catered_Tickets = response.data;
+        }, function myError(response) {
+        console.log(response);
+        });
+    }
+
+    $scope.View_Address_Ticket = function(List){
+      
+        $scope.Specific_Address_Ticket = List;
+        console.log(List);
+    }
+
+    $scope.Get_Expired_Tickets = function(){
+        $("#list_services").attr("hidden","hidden");        
+        $("#list_tickets").attr("hidden","hidden");
+        $("#list_catered_tickets").attr("hidden","hidden");
+        $("#list_expired_tickets").attr("hidden",false);
+        
+        $http({
+        method : "GET",
+        url : 'tech_head/Get_Expired_Tickets',
+        data: {},
+        }).then(function mySuccess(response) {
+        console.log(response.data);
+        list_ticket = response.data;
+
+        a = list_ticket.length;
+        for(i = 0; i < a; i++){
+          hr = 0;
+          min = 0;
+          day_check = 0;
+          if(list_ticket[i].time_passed > 60){
+            while(list_ticket[i].time_passed > 60){
+              if(list_ticket[i].time_passed > 60){
+              list_ticket[i].time_passed = list_ticket[i].time_passed - 60;
+                hr = hr + 1;
+              }  
+            }
+            min = list_ticket[i].time_passed;
+            if(hr >= 24){
+              day = 0;
+              day_check = 0;
+              while(hr >= 24){
+                hr = hr -24;
+                day = day + 1;
+              }
+              if(day > 1){
+                list_ticket[i].time_passed = day+" days ago";  
+              }else{
+                list_ticket[i].time_passed = day+" day ago";  
+              }
+              
+            }else{
+              if(hr > 1){
+                list_ticket[i].time_passed = hr+" hours and "+min+" minutes ago";
+              }else{
+                list_ticket[i].time_passed = hr+" hour and "+min+" minutes ago";
+              }
+              
+            }            
+          }else if(list_ticket[i].time_passed == 0){
+            list_ticket[i].time_passed = "Few Seconds Ago";
+          }else if(list_ticket[i].time_passed > 0 && list_ticket[i].time_passed < 60 && list_ticket[i].time_passed > 1){
+            list_ticket[i].time_passed = list_ticket[i].time_passed+" minutes ago";
+          }else if(list_ticket[i].time_passed > 0 && list_ticket[i].time_passed < 60 && list_ticket[i].time_passed == 1){
+            list_ticket[i].time_passed = list_ticket[i].time_passed+" minute ago";
+          }
+        }
+        $scope.List_Expired_Tickets = list_ticket;
+        console.log($scope.List_Expired_Tickets);
+
         }, function myError(response) {
         console.log(response);
         });
@@ -96,6 +167,6 @@ app.controller('Tech_Head_Controller', function($scope,$http) {
                 });
         
     }
-    
+
 
 });
